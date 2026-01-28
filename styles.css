@@ -188,6 +188,44 @@ body.ltr {
     color: var(--white-bright);
 }
 
+/* قسم تاريخ الميلاد */
+.birthdate-section {
+    margin-top: 20px;
+    backdrop-filter: blur(10px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    text-align: center;
+}
+
+.birthdate-section h2 {
+    color: var(--gold-luxury);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.birthdate-section input {
+    padding: 10px;
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    background: var(--glass-bg);
+    color: var(--white-bright);
+    margin-bottom: 10px;
+    width: 200px;
+    text-align: center;
+}
+
+.birthdate-section button {
+    margin-bottom: 15px;
+}
+
+#birthdate-result p {
+    margin: 5px 0;
+    color: var(--white-bright);
+}
+
 /* الإدخال اليدوي للموقع */
 .manual-location {
     display: flex;

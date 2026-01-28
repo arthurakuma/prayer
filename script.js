@@ -35,7 +35,9 @@ const translations = {
             isha: 'العشاء'
         },
         notification: 'اقترب وقت صلاة {prayer} بعد 5 دقائق',
-        error: 'خطأ في جلب مواقيت الصلاة'
+        error: 'خطأ في جلب مواقيت الصلاة',
+        invalidDate: 'تاريخ غير صحيح. يرجى إدخال تاريخ بالصيغة YYYY-MM-DD.',
+        futureDate: 'لا يمكن إدخال تاريخ في المستقبل.'
     },
     en: {
         siteName: 'Salati',
@@ -62,9 +64,13 @@ const translations = {
             isha: 'Isha'
         },
         notification: 'Prayer time for {prayer} is in 5 minutes',
-        error: 'Error fetching prayer times'
+        error: 'Error fetching prayer times',
+        invalidDate: 'Invalid date. Please enter a date in YYYY-MM-DD format.',
+        futureDate: 'Cannot enter a future date.'
     }
 };
+
+
 
 // الحصول على الموقع تلقائيًا
 function getLocation() {
@@ -161,7 +167,7 @@ function updateDates(dateData) {
     const hijri = dateData.hijri;
 
     if (currentLanguage === 'ar') {
-        document.getElementById('gregorian-date').textContent = `التاريخ الميلادي: ${gregorian.weekday.ar}, ${toArabicNumerals(gregorian.day)} ${getArabicMonth(gregorian.month.en)} ${toArabicNumerals(gregorian.year)}`;
+        document.getElementById('gregorian-date').textContent = `التاريخ الميلادي: ${toArabicNumerals(gregorian.day)} ${getArabicMonth(gregorian.month.en)} ${toArabicNumerals(gregorian.year)}`;
         document.getElementById('hijri-date').textContent = `التاريخ الهجري: ${hijri.weekday.ar}, ${toArabicNumerals(hijri.day)} ${hijri.month.ar} ${toArabicNumerals(hijri.year)}`;
     } else {
         document.getElementById('gregorian-date').textContent = `Gregorian Date: ${gregorian.weekday.en}, ${gregorian.day} ${gregorian.month.en} ${gregorian.year}`;
@@ -346,6 +352,8 @@ document.getElementById('lang-btn').addEventListener('click', () => {
     switchLanguage();
 });
 
+
+
 // تبديل اللغة
 function switchLanguage() {
     // تحديث اتجاه الصفحة
@@ -382,9 +390,11 @@ function switchLanguage() {
     document.getElementById('city-input').placeholder = translations[currentLanguage].cityPlaceholder;
     document.getElementById('submit-location').textContent = translations[currentLanguage].submitBtn;
 
+
+
     // تحديث الفوتر
-    document.querySelector('.footer p').textContent = currentLanguage === 'ar' 
-        ? '© 2026 صلاتي. جميع الحقوق محفوظة.' 
+    document.querySelector('.footer p').textContent = currentLanguage === 'ar'
+        ? '© 2026 صلاتي. جميع الحقوق محفوظة.'
         : '© 2026 Salati. All rights reserved.';
 
     // تحديث الصلاة القادمة
