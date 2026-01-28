@@ -1,0 +1,308 @@
+/* المتغيرات */
+:root {
+    --black-deep: #000000;
+    --gold-luxury: #D4AF37;
+    --white-bright: #FFFFFF;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+/* إعادة تعيين */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* الجسم */
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: var(--black-deep);
+    color: var(--white-bright);
+    overflow-x: hidden;
+    direction: rtl;
+}
+
+/* دعم الاتجاه الأيسر للإنجليزية */
+body.ltr {
+    direction: ltr;
+}
+
+/* الخلفية */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* تعتيم خفيف */
+}
+
+/* الهيدر */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    margin: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.site-name {
+    font-size: 2rem;
+    color: var(--gold-luxury);
+    text-shadow: 0 0 10px var(--gold-luxury);
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--white-bright);
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.control-btn:hover {
+    background: var(--gold-luxury);
+    color: var(--black-deep);
+    box-shadow: 0 0 20px var(--gold-luxury);
+}
+
+/* الرئيسي */
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.location-display {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: var(--gold-luxury);
+}
+
+.date-time-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+}
+
+.date-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.date-info p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--white-bright);
+}
+
+.clock-info {
+    font-size: 2rem;
+    color: var(--gold-luxury);
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--gold-luxury);
+}
+
+.prayer-times {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.prayer-card {
+    backdrop-filter: blur(10px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    transition: all 0.3s ease;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.prayer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.prayer-card h2 {
+    font-size: 1.5rem;
+    color: var(--gold-luxury);
+    margin-bottom: 10px;
+}
+
+.prayer-card p {
+    font-size: 1.8rem;
+    color: var(--white-bright);
+}
+
+/* الإدخال اليدوي للموقع */
+.manual-location {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    backdrop-filter: blur(10px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+}
+
+.manual-location input {
+    padding: 10px;
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    background: var(--glass-bg);
+    color: var(--white-bright);
+}
+
+.manual-location button {
+    background: var(--gold-luxury);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--black-deep);
+    transition: all 0.3s ease;
+}
+
+.manual-location button:hover {
+    box-shadow: 0 0 20px var(--gold-luxury);
+}
+
+.hidden {
+    display: none;
+}
+
+/* العد التنازلي */
+.countdown-container {
+    margin-top: 30px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    animation: fadeIn 1s ease-in-out;
+}
+
+.countdown-container h2 {
+    color: var(--gold-luxury);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+#next-prayer-info p {
+    margin: 5px 0;
+}
+
+#next-prayer-name {
+    font-size: 1.2rem;
+    color: var(--white-bright);
+}
+
+#countdown-timer {
+    font-size: 2rem;
+    color: var(--gold-luxury);
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--gold-luxury);
+}
+
+/* الـAnimations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* الفوتر */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    backdrop-filter: blur(10px);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    z-index: 10;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--white-bright);
+}
+
+/* الاستجابة */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .prayer-times {
+        grid-template-columns: 1fr;
+    }
+    
+    .site-name {
+        font-size: 1.5rem;
+    }
+}
