@@ -1,5 +1,5 @@
 // متغيرات عامة
-let latitude, longitude, country, city;
+let latitude, longitude, country, city, detectedCity, detectedCountry;
 let prayerTimes = {};
 let isMuted = false;
 let currentDate = new Date().toDateString();
@@ -76,19 +76,45 @@ const translations = {
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-            (position) => {
-                latitude = position.coords.latitude;
-                longitude = position.coords.longitude;
-                fetchPrayerTimes();
+            function(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                latitude = lat;
+                longitude = lon;
+                console.log("خط العرض:", lat, "خط الطول:", lon);
+                getCityFromCoordinates(lat, lon);
             },
-            (error) => {
-                console.log("Geolocation denied, showing manual input");
+            function(error) {
+                console.error("لم نتمكن من تحديد موقعك:", error.message);
+                alert("يرجى السماح بالوصول للموقع لتحديد المدينة بدقة");
                 showManualLocation();
             }
         );
     } else {
+        alert("متصفحك لا يدعم تحديد الموقع الجغرافي");
         showManualLocation();
     }
+}
+
+function getCityFromCoordinates(lat, lon) {
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.address) {
+                detectedCity = data.address.city || data.address.town || data.address.village || data.address.county;
+                detectedCountry = data.address.country;
+                updateLocationText();
+                fetchPrayerTimes();
+            } else {
+                document.getElementById('location-text').textContent = "تعذر تحديد المدينة بدقة";
+                fetchPrayerTimes();
+            }
+        })
+        .catch(error => {
+            console.error("خطأ في تحديد الموقع:", error);
+            document.getElementById('location-text').textContent = "تعذر تحديد الموقع بدقة";
+            fetchPrayerTimes();
+        });
 }
 
 // عرض خيار الإدخال اليدوي
@@ -125,7 +151,11 @@ function updatePrayerTimes() {
 }
 
 function updateLocationText(timezone) {
-    document.getElementById('location-text').textContent = `${translations[currentLanguage].locationText}: ${timezone}`;
+    if (detectedCity && detectedCountry) {
+        document.getElementById('location-text').textContent = currentLanguage === 'ar' ? `موقعك: ${detectedCity}, ${detectedCountry}` : `Your location: ${detectedCity}, ${detectedCountry}`;
+    } else {
+        document.getElementById('location-text').textContent = `${translations[currentLanguage].locationText}: ${timezone}`;
+    }
 }
 
 function updateLocationTextDisplay() {
